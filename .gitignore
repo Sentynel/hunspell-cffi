@@ -1,0 +1,7 @@
+*.pyc
+.*.swp
+*.o
+*.dic
+*.aff
+*.c
+*.so
