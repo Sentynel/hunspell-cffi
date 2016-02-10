@@ -1,10 +1,19 @@
 #! /usr/bin/env python3
+import platform
+
 from cffi import FFI
 ffi = FFI()
 
-ffi.set_source("_hunspell",
-        "#include <hunspell/hunspell.h>",
-        libraries=["hunspell"],)
+if platform.system() == "Windows":
+    # require a copy of the headers, .dll and .lib here
+    # (note the .dll version is required, static won't link for some reason)
+    ffi.set_source("_hunspell",
+            '#include "hunspell.h"',
+            libraries=["libhunspell"])
+else:
+    ffi.set_source("_hunspell",
+            "#include <hunspell/hunspell.h>",
+            libraries=["hunspell"],)
 
 ffi.cdef("""
 typedef struct Hunhandle Hunhandle;
