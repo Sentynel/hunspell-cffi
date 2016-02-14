@@ -4,7 +4,7 @@ setup(
         name="Hunspell-CFFI",
         version="1.0.0",
         description="A CFFI binding for the Hunspell spellcheck library",
-        url="https://gitlab.com/Sentynel/hunspell-cffi",
+        url="https://github.com/Sentynel/hunspell-cffi",
         author="Sam Lade",
         author_email="hunspell-cffi@sentynel.com",
         license="MIT",
