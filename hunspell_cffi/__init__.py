@@ -39,6 +39,8 @@ class Hunspell:
             res = [i.decode("utf8") for i in res]
         lib.Hunspell_free_list(self.hun, sl, n)
         return res
-    
+
     def __del__(self):
-        lib.Hunspell_destroy(self.hun)
+        if hasattr(self, "hun"):
+            if self.hun:
+                lib.Hunspell_destroy(self.hun)
