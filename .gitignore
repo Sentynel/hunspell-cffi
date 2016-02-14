@@ -5,3 +5,6 @@
 *.aff
 *.c
 *.so
+*.egg-info
+build/*
+dist/*
