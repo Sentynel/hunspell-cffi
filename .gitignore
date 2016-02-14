@@ -1,8 +1,6 @@
 *.pyc
 .*.swp
 *.o
-*.dic
-*.aff
 *.c
 *.so
 *.egg-info
