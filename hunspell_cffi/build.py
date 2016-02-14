@@ -30,7 +30,9 @@ if platform.system() == "Windows":
     # (note the .dll version is required, static won't link for some reason)
     ffi.set_source("_hunspell",
             '#include "hunspell.h"',
-            libraries=["libhunspell"])
+            libraries=["libhunspell"],
+            include_dirs=["."],
+            library_dirs=["."],)
 else:
     ffi.set_source("_hunspell",
             "#include <hunspell/hunspell.h>",

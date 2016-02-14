@@ -1,4 +1,11 @@
+import platform
+
 from setuptools import setup, find_packages
+
+if platform.system() == "Windows":
+    data_files=[(".", ["libhunspell.dll"]),]
+else:
+    data_files=[]
 
 setup(
         name="Hunspell-CFFI",
@@ -23,4 +30,5 @@ setup(
         setup_requires=["cffi>=1.0.0",],
         cffi_modules=["hunspell_cffi/build.py:ffi"],
         install_requires=["cffi>=1.0.0",],
+        data_files=data_files,
 )
