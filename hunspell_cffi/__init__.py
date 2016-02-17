@@ -60,6 +60,20 @@ class Hunspell:
         lib.Hunspell_free_list(self.hun, sl, n)
         return res
 
+    def add(self, word):
+        """Add a word to the runtime dictionary.
+
+        Returns True if added successfully.
+
+        Note: this adds to the runtime dictionary *only*, it's not persistent.
+        Further, the Hunspell C API we use doesn't seem to provide the
+        ability to load multiple dictionaries at the moment, so you can't
+        simply use a local dictionary and the system dictionary either. #todo
+        """
+        if isinstance(word, str):
+            word = word.encode("utf8")
+        return not lib.Hunspell_add(self.hun, word)
+
     def __del__(self):
         if hasattr(self, "hun"):
             if self.hun:
