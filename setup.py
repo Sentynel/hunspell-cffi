@@ -9,7 +9,7 @@ else:
 
 setup(
         name="Hunspell-CFFI",
-        version="1.0.0",
+        version="1.1.0",
         description="A CFFI binding for the Hunspell spellcheck library",
         url="https://github.com/Sentynel/hunspell-cffi",
         author="Sam Lade",
