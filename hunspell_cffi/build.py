@@ -33,12 +33,18 @@ if platform.system() == "Windows":
             libraries=["libhunspell"],
             include_dirs=["."],
             library_dirs=["."],)
+elif platform.system() == "Darwin":
+    ffi.set_source("_hunspell",
+            '#include "hunspell.h"',
+            libraries=["hunspell-1.2"],
+            include_dirs=["osx-data"],
+            )
 else:
     ffi.set_source("_hunspell",
             "#include <hunspell/hunspell.h>",
             libraries=["hunspell"],)
 
-ffi.cdef("""
+cdefs = """
 typedef struct Hunhandle Hunhandle;
 
 Hunhandle *Hunspell_create(const char * affpath, const char * dpath);
@@ -50,15 +56,20 @@ char *Hunspell_get_dic_encoding(Hunhandle *pHunspell);
 int Hunspell_suggest(Hunhandle *pHunspell, char*** slst, const char * word);
 int Hunspell_analyze(Hunhandle *pHunspell, char*** slst, const char * word);
 int Hunspell_stem(Hunhandle *pHunspell, char*** slst, const char * word);
-int Hunspell_stem2(Hunhandle *pHunspell, char*** slst, char** desc, int n);
 int Hunspell_generate(Hunhandle *pHunspell, char*** slst, const char * word,
     const char * word2);
-int Hunspell_generate2(Hunhandle *pHunspell, char*** slst, const char * word,
-    char** desc, int n);
 int Hunspell_add(Hunhandle *pHunspell, const char * word);
 int Hunspell_add_with_affix(Hunhandle *pHunspell, const char * word, const char * example);
 int Hunspell_remove(Hunhandle *pHunspell, const char * word);
 void Hunspell_free_list(Hunhandle *pHunspell, char *** slst, int n);
-""")
+"""
+
+if platform.system() != "Darwin":
+    cdefs += """int Hunspell_generate2(Hunhandle *pHunspell, char*** slst, const char * word,
+char** desc, int n);
+int Hunspell_stem2(Hunhandle *pHunspell, char*** slst, char** desc, int n);
+"""
+ffi.cdef(cdefs)
+
 if __name__ == "__main__":
     ffi.compile()
