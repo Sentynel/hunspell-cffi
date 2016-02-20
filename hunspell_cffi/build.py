@@ -31,8 +31,8 @@ if platform.system() == "Windows":
     ffi.set_source("_hunspell",
             '#include "hunspell.h"',
             libraries=["libhunspell"],
-            include_dirs=["."],
-            library_dirs=["."],)
+            include_dirs=["win-x64-data"],
+            library_dirs=["win-x64-data"],)
 elif platform.system() == "Darwin":
     ffi.set_source("_hunspell",
             '#include "hunspell.h"',
