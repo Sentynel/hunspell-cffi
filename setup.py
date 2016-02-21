@@ -3,7 +3,7 @@ import platform
 from setuptools import setup, find_packages
 
 if platform.system() == "Windows":
-    data_files=[(".", ["libhunspell.dll"]),]
+    data_files=[(".", ["win-x64-data/libhunspell.dll"]),]
 else:
     data_files=[]
 
