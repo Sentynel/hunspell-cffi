@@ -32,8 +32,10 @@ class Hunspell:
         base = os.path.join(path, language)
         aff = (base + ".aff").encode("utf8")
         dic = (base + ".dic").encode("utf8")
-        if not os.path.exists(aff) and os.path.exists(dic):
-            raise FileNotFoundError("Couldn't find .aff and .dic files")
+        if not os.path.exists(aff):
+            raise FileNotFoundError("Couldn't find .aff file at " + str(aff))
+        if not os.path.exists(dic):
+            raise FileNotFoundError("Couldn't find .dic file at " + str(dic))
         self.hun = lib.Hunspell_create(aff, dic)
         if not self.hun:
             raise HunspellError("Failed to initialise Hunspell")
